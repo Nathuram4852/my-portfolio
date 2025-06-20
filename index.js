@@ -6,26 +6,26 @@
   });
 
 
-document.addEventListener("DOMContentLoaded", function () {
-    const filterButtons = document.querySelectorAll('[data-filter]');
-    const projectItems = document.querySelectorAll('.project-item');
+const filterButtons = document.querySelectorAll('[data-filter]');
+const projectItems = document.querySelectorAll('.project-item');
 
-    filterButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        filterButtons.forEach(btn => btn.classList.remove('active'));
-        button.classList.add('active');
+filterButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    // Remove 'active' class from all buttons
+    filterButtons.forEach(btn => btn.classList.remove('active'));
+    button.classList.add('active');
 
-        const filterValue = button.getAttribute('data-filter');
+    const filterValue = button.getAttribute('data-filter');
 
-        projectItems.forEach(item => {
-          const categories = (item.getAttribute('data-category') || "").split(" ");
+    projectItems.forEach(item => {
+      const categories = item.getAttribute('data-category')?.split(' ') || [];
 
-          if (filterValue === "all" || categories.includes(filterValue)) {
-            item.style.display = "block";
-          } else {
-            item.style.display = "none";
-          }
-        });
-      });
+      // Show item if 'all' is selected or filter matches any category
+      if (filterValue === 'all' || categories.includes(filterValue)) {
+        item.style.display = 'block';
+      } else {
+        item.style.display = 'none';
+      }
     });
   });
+});
