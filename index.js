@@ -6,26 +6,26 @@
   });
 
 
-const filterButtons = document.querySelectorAll('[data-filter]');
-const projectItems = document.querySelectorAll('.project-item');
+document.addEventListener("DOMContentLoaded", function () {
+    const filterButtons = document.querySelectorAll('[data-filter]');
+    const projectItems = document.querySelectorAll('.project-item');
 
-filterButtons.forEach(button => {
-  button.addEventListener('click', () => {
-    // Remove active class from all buttons
-    filterButtons.forEach(btn => btn.classList.remove('active'));
-    button.classList.add('active');
+    filterButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        filterButtons.forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
 
-    const filterValue = button.getAttribute('data-filter');
+        const filterValue = button.getAttribute('data-filter');
 
-    projectItems.forEach(item => {
-      const category = item.getAttribute('data-category');
+        projectItems.forEach(item => {
+          const categories = (item.getAttribute('data-category') || "").split(" ");
 
-      // Check if the category string includes the filter value (for multi-category support)
-      if (filterValue === 'all' || category.split(' ').includes(filterValue)) {
-        item.style.display = 'block';
-      } else {
-        item.style.display = 'none';
-      }
+          if (filterValue === "all" || categories.includes(filterValue)) {
+            item.style.display = "block";
+          } else {
+            item.style.display = "none";
+          }
+        });
+      });
     });
   });
-});
